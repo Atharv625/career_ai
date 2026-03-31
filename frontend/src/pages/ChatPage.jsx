@@ -119,15 +119,12 @@ export default function ChatPage() {
     setLoading(true);
 
     try {
-      const data = await sendChatMessage(
-        userId, trimmed,
-        profile.email || null
-      );
+      const data = await sendChatMessage(userId, trimmed, profile);
       const aiMsg = {
         role: "assistant",
         content: data.response,
         sources: data.sources || [],
-        timestamp: data.timestamp,
+        timestamp: new Date().toISOString(),
       };
       setChatMessages(prev => [...prev, aiMsg]);
     } catch (err) {

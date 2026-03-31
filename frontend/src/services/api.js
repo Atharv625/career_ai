@@ -9,9 +9,13 @@ const api = axios.create({
 });
 
 // ── Chat ──────────────────────────────────────────────
-export const sendChatMessage = (userId, message, studentEmail = null) =>
-  api.post("/chat/", { user_id: userId, message, student_email: studentEmail })
-     .then(r => r.data);
+export const sendChatMessage = (userId, message, profile = null) =>
+  api.post("/chat/", {
+    user_id: userId,
+    message: message,
+    student_profile: profile   // 🔥 correct field
+  })
+  .then(r => r.data);
 
 export const clearChatSession = (userId) =>
   api.post("/chat/clear-session", { user_id: userId }).then(r => r.data);
