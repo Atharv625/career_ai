@@ -22,7 +22,7 @@ from typing import List, Dict, Any, Optional
 from collections import OrderedDict
 
 import numpy as np
-from google import genai
+# from google import genai
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from dotenv import load_dotenv
@@ -39,6 +39,9 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise EnvironmentError("GEMINI_API_KEY is not set in environment variables.")
 
+def get_client():
+    from google import genai
+    return genai.Client(api_key="your_key")
 # Initialize Gemini client
 client = genai.Client(
     api_key=GEMINI_API_KEY,
