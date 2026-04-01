@@ -1,21 +1,46 @@
+
+
 import axios from "axios";
 
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+// ✅ Use ENV variable
+const BASE = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-  baseURL: BASE,
+  baseURL: `${BASE}/api`,
   timeout: 30000,
   headers: { "Content-Type": "application/json" },
 });
 
 // ── Chat ──────────────────────────────────────────────
-export const sendChatMessage = (userId, message, profile = null) =>
-  api.post("/chat/", {
-    user_id: userId,
-    message: message,
-    student_profile: profile   // 🔥 correct field
-  })
-  .then(r => r.data);
+export const sendChatMessage = async (userId, message, profile) => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 60000); // 60s timeout
+
+  try {
+    const res = await fetch(`${BASE}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: userId, message, profile }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeout);
+
+    if (!res.ok) {
+      const error = await res.text();
+      throw new Error(`API error: ${res.status} - ${error}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    clearTimeout(timeout);
+    if (err.name === "AbortError") {
+      throw new Error("Request timeout (60s) - Backend not responding. Check API connection.");
+    }
+    throw err;
+  }
+};
 
 export const clearChatSession = (userId) =>
   api.post("/chat/clear-session", { user_id: userId }).then(r => r.data);
