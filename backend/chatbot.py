@@ -638,7 +638,12 @@ import time
 from typing import List, Dict, Any, Optional
 from collections import OrderedDict
 
+<<<<<<< HEAD
 from google import genai
+=======
+import numpy as np
+# from google import genai
+>>>>>>> e18be8c2156e7e0cb2db3cff2cd2279c1045eb1b
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from dotenv import load_dotenv
@@ -652,7 +657,20 @@ logger = logging.getLogger(__name__)
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
+<<<<<<< HEAD
     raise EnvironmentError("GEMINI_API_KEY not set")
+=======
+    raise EnvironmentError("GEMINI_API_KEY is not set in environment variables.")
+
+def get_client():
+    from google import genai
+    return genai.Client(api_key="your_key")
+# Initialize Gemini client
+client = genai.Client(
+    api_key=GEMINI_API_KEY,
+    http_options={"api_version": "v1"}
+)
+>>>>>>> e18be8c2156e7e0cb2db3cff2cd2279c1045eb1b
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 DATA_DIR = pathlib.Path(__file__).parent.parent / "data"
