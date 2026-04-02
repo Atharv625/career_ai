@@ -22,7 +22,7 @@ db_instance = Database()
 # ─────────────────────────────────────────────────────────
 async def connect_to_mongo():
     """Establish MongoDB connection on application startup."""
-    mongo_url = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
+    mongo_url = os.getenv("MONGODB_URL")
     db_name   = os.getenv("MONGODB_DB",  "career_advisor")
 
     db_instance.client = AsyncIOMotorClient(mongo_url)

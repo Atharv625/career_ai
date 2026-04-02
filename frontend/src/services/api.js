@@ -14,7 +14,7 @@ const api = axios.create({
 // ── Chat ──────────────────────────────────────────────
 export const sendChatMessage = async (userId, message, profile) => {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 60000); // 60s timeout
+  const timeout = setTimeout(() => controller.abort(), 120000); // 60s timeout
 
   try {
     const res = await fetch(`${BASE}/api/chat`, {

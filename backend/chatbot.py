@@ -661,12 +661,12 @@ MAX_SESSIONS = int(os.getenv("MAX_SESSIONS", 500))
 MAX_MESSAGE_LENGTH = int(os.getenv("MAX_MESSAGE_LENGTH", 2000))
 MIN_MESSAGE_LENGTH = int(os.getenv("MIN_MESSAGE_LENGTH", 3))
 SIMILARITY_THRESHOLD = float(os.getenv("SIMILARITY_THRESHOLD", 0.1))
-MAX_RETRIES = int(os.getenv("MAX_RETRIES", 3))
+MAX_RETRIES = int(os.getenv("MAX_RETRIES", 1))
 RETRY_DELAY = float(os.getenv("RETRY_DELAY", 1.0))
 RATE_LIMIT_REQUESTS = int(os.getenv("RATE_LIMIT_REQUESTS", 10))
 RATE_LIMIT_WINDOW = int(os.getenv("RATE_LIMIT_WINDOW", 60))
 MAX_HISTORY_MESSAGES = int(os.getenv("MAX_HISTORY_MESSAGES", 20))
-GEMINI_TIMEOUT = int(os.getenv("GEMINI_TIMEOUT", 45))
+GEMINI_TIMEOUT = int(os.getenv("GEMINI_TIMEOUT", 25))
 
 # ═══════════════════════════��═══════════════════════════════
 # RATE LIMITER
